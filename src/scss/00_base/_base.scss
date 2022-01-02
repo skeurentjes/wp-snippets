@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--body-color);
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  margin: 0;
+}
+
+p {
+  margin-bottom: var(--font-size);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--link-color-hover);
+    text-decoration: underline;
+  }
+}
+
+hr {
+  display: block;
+  width: 100%;
+  height: 0;
+  border: 0;
+  border-top: 1px dotted rgba(0, 0, 0, 0.15);
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  fill: currentColor;
+}

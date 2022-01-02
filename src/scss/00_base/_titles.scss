@@ -1,0 +1,37 @@
+.a-title {
+  color: var(--title-color);
+  font-family: var(--title-font-family);
+  font-size: var(--title-font-size);
+  font-style: var(--title-font-style);
+  font-weight: var(--title-font-weight);
+  line-height: var(--title-line-height);
+  text-transform: var(--title-text-transform);
+  margin-bottom: 2rem;
+
+  + .a-subtitle {
+    margin-top: -2rem;
+  }
+
+  a {
+    color: var(--title-color);
+    
+    &:hover {
+      text-decoration: none;
+      color: var(--color-primary);
+    }
+  }
+}
+
+.a-subtitle {
+  color: var(--subtitle-color);
+  font-family: var(--subtitle-font-family);
+  font-size: var(--subtitle-font-size);
+  font-style: var(--subtitle-font-style);
+  font-weight: var(--subtitle-font-weight);
+  line-height: var(--subtitle-line-height);
+  margin-bottom: 2rem;
+
+  a:hover {
+    text-decoration: none;
+  }
+}

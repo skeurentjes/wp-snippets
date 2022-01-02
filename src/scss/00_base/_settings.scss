@@ -1,0 +1,69 @@
+:root {
+  // Colors
+  --color-primary: #ff7c34;
+  --color-primary-hover: #ff6612;
+  --color-secondary: #ff2859;
+  --color-secondary-hover: #ff063f;
+  --color-tertiary: #cf2972;
+  --color-tertiary-hover: #b22362;
+  --color-quaternary: #7d2f9d;
+  --color-quaternary-hover: #692783;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-gray-lightest: #f5f5f5;
+  --color-gray-light: #e0e0e0;
+  --color-gray: #c5c5c5;
+  --color-gray-dark: #151515;
+  --color-gray-darkest: #101010;
+
+  // Miscellaneous
+  --body-color: var(--color-gray-dark);
+  --link-color: var(--color-primary);
+  --link-color-hover: var(--color-primary-hover);
+  --container-width: 1600px;
+  --gutter-width: 2rem;
+  --border-radius: 1rem;
+  --border-radius-small: calc(var(--border-radius) * 0.5);
+  --border-radius-large: calc(var(--border-radius) * 2);
+  --animation-duration: 200ms;
+
+  // Typography
+  --font-color: var(--color-white);
+  --font-family: 'Sora', sans-serif;
+  --font-size: 1.4rem;
+  --font-weight: 300;
+  --line-height: 1.6;
+
+  // Titles
+  --title-color: var(--color-white);
+  --title-font-family: 'Andada Pro', serif;
+  --title-font-size: 3.2rem;
+  --title-font-style: normal;
+  --title-font-weight: 800;
+  --title-line-height: 1.2;
+  --title-text-transform: none;
+
+  // Subtitles
+  --subtitle-color: var(--color-white);
+  --subtitle-font-family: 'Andada Pro', serif;
+  --subtitle-font-size: 2.6rem;
+  --subtitle-font-style: normal;
+  --subtitle-font-weight: 600;
+  --subtitle-line-height: 1.2;
+  --subtitle-text-transform: none;
+
+  // Set root font size to 10px for using rem units
+  font-size: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --gutter-width: 4rem;
+    --font-size: 1.6rem;
+    --line-height: 1.8;
+    --title-font-size: 2.8rem;
+    --subtitle-font-size: 2rem;
+  }
+}

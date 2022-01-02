@@ -1,0 +1,14 @@
+.o-app {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    min-height: 100vh;
+
+    &__sidebar {
+        padding: var(--gutter-width);
+        background-color: var(--color-gray-darkest);
+    }
+
+    &__main {
+        padding: var(--gutter-width);
+    }
+}

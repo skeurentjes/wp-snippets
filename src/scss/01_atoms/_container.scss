@@ -1,0 +1,8 @@
+.a-container {
+  margin: auto;
+  max-width: var(--container-width);
+
+  &--gutter {
+    padding: 0 var(--gutter-width);
+  }
+}
