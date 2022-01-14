@@ -3,16 +3,22 @@
         <aside class="o-app__sidebar">
             <SnippetMenu
                     :snippets="snippets"
+                    :active-url="activeUrl"
                     @update-url="setUrl"
                 />
         </aside>
         <main class="o-app__main" role="main">
             <section>
-                <h1 class="a-title">Snippets</h1>
                 <SnippetsArticle
-                    v-if="activeSnippetUrl"
-                    :post="activeSnippet"
+                    v-if="activeUrl"
+                    :title="snippetTitle"
+                    :content="snippetContent"
                 />
+                <template v-else>
+                    <article>
+                        <h1 class="a-title">Dashboard</h1>
+                    </article>
+                </template>
             </section>
         </main>
     </div>
@@ -30,41 +36,35 @@ export default {
         SnippetsArticle,
     },
 
-    props: {
-        
-    },
-
     data () {
       return {
           snippets: [],
-          activeSnippetUrl: '',
-          activeSnippet: {},
+          activeUrl: '',
+          snippetTitle: '',
+          snippetContent: '',
       }
     },
 
     methods: {
         setUrl(url) {
-            this.activeSnippetUrl = url;
+            this.activeUrl = url;
+
+            this.loadArticle(url);
         },
 
         loadArticle(url) {
             this.axios.get(url).then(response => {
-                console.log(response.data);
-                this.activeSnippet = response.data;
+                this.snippetTitle = response.data.title.rendered;
+                this.snippetContent = response.data.content.rendered;
+
             }).catch(error => {
                 console.warn({error});
             });
         },
     },
 
-    watch: {
-        activeSnippetUrl(newUrl, oldUrl) {
-            this.loadArticle(newUrl);
-        },
-    },
-
     created() {
-        this.axios.get(`http://localhost/snippets/wp-json/wp/v2/snippet`).then(response => {
+        this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet`).then(response => {
             this.snippets = response.data;
         }).catch(error => {
             console.warn({error});

@@ -1,0 +1,29 @@
+.m-snippets-menu {
+  &__listing {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    margin-bottom: calc(var(--gutter-width) / 4);
+  }
+
+  &__link {
+    display: block;
+    padding: calc(var(--gutter-width) / 4) calc(var(--gutter-width) / 2);
+    border-radius: var(--border-radius);
+    color: var(--color-white);
+    transition: all 250ms ease;
+
+    &.is-active,
+    &:hover {
+      background-color: var(--color-gray-dark);
+      text-decoration: none;
+      color: var(--color-primary);
+    }
+
+    &.is-active {
+      font-weight: 700;
+    }
+  }
+}

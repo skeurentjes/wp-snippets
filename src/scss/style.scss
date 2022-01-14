@@ -1,12 +1,15 @@
-@import './00_base/_theme';
-@import './00_base/_reset';
-@import './00_base/_fonts';
-@import './00_base/_settings';
-@import './00_base/_base';
+@import './00_base/theme';
+@import './00_base/reset';
+@import './00_base/fonts';
+@import './00_base/settings';
+@import './00_base/base';
 
-@import './01_atoms/_container';
-@import './01_atoms/_titles';
-@import './01_atoms/_buttons';
-@import './01_atoms/_forms'; 
+@import './01_atoms/container';
+@import './01_atoms/titles';
+@import './01_atoms/buttons';
+@import './01_atoms/forms';
+
+@import './02_molecules/snippets-menu';
+@import './02_molecules/content';
 
 @import './03_organisms/app'; 
