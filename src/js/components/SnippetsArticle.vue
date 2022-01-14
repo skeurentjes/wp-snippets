@@ -1,24 +1,13 @@
 <template>
-    <article>
-        <h2>{{ this.post.id }}</h2>
-        <h2>{{ this.post.title.rendered }}</h2>
-        {{ this.post.content.rendered }}
+    <article class="m-content">
+        <h1 class="a-title">{{ this.title }}</h1>
+        <div v-html="this.content" />
     </article>
 </template>
 
 <script>
 export default {
     name: 'SnippetsArticle',
-    props: {
-        post: {},
-    },
-
-    methods: {
-
-    },
+    props: ['title', 'content'],
 }
 </script>
-
-<style>
-    
-</style>

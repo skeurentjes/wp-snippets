@@ -4,7 +4,7 @@
     min-height: 100vh;
 
     &__sidebar {
-        padding: var(--gutter-width);
+        padding: calc(var(--gutter-width) / 2);
         background-color: var(--color-gray-darkest);
     }
 

@@ -18,16 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.js-menu-toggle-button').forEach((el) => new OffscreenMenu(el).toggle());
 });
 
-import Vue from 'vue';
+import { createApp } from "vue";
 import Snippets from './Snippets.vue'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 if (document.getElementById('js-vue-snippets-container')) {
-    Vue.use(VueAxios, axios);
-
-    new Vue({
-        el: '#js-vue-snippets-container',
-        render: h => h(Snippets),
-    });
+    const snippets = createApp(Snippets);
+    snippets.use(VueAxios, axios);
+    snippets.mount('#js-vue-snippets-container');
 }
