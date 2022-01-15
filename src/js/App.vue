@@ -1,18 +1,18 @@
 <template>
     <div class="o-app">
         <aside class="o-app__sidebar">
-            <SnippetMenu
-                    :snippets="snippets"
+            <Menu
+                    :posts="posts"
                     :active-url="activeUrl"
                     @update-url="setUrl"
                 />
         </aside>
         <main class="o-app__main" role="main">
             <section>
-                <SnippetsArticle
+                <Post
                     v-if="activeUrl"
-                    :title="snippetTitle"
-                    :content="snippetContent"
+                    :title="postTitle"
+                    :content="postContent"
                 />
                 <template v-else>
                     <article>
@@ -26,22 +26,22 @@
 
 <script>
 
-import SnippetMenu from './components/SnippetsMenu.vue';
-import SnippetsArticle from './components/SnippetsArticle.vue';
+import Menu from './components/Menu.vue';
+import Post from './components/Post.vue';
 
 export default {
-    name: 'Snippets',
+    name: 'App',
     components: {
-        SnippetMenu,
-        SnippetsArticle,
+        Menu,
+        Post,
     },
 
     data () {
       return {
-          snippets: [],
+          posts: [],
           activeUrl: '',
-          snippetTitle: '',
-          snippetContent: '',
+          postTitle: '',
+          postContent: '',
       }
     },
 
@@ -54,8 +54,8 @@ export default {
 
         loadArticle(url) {
             this.axios.get(url).then(response => {
-                this.snippetTitle = response.data.title.rendered;
-                this.snippetContent = response.data.content.rendered;
+                this.postTitle = response.data.title.rendered;
+                this.postContent = response.data.content.rendered;
 
             }).catch(error => {
                 console.warn({error});
@@ -65,7 +65,7 @@ export default {
 
     created() {
         this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet`).then(response => {
-            this.snippets = response.data;
+            this.posts = response.data;
         }).catch(error => {
             console.warn({error});
         });

@@ -6,12 +6,12 @@ import '../scss/style.scss';
 import '../svg/logo.svg';
 
 import { createApp } from "vue";
-import Snippets from './Snippets.vue';
+import App from './App.vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 if (document.getElementById('js-vue-snippets-container')) {
-    const snippets = createApp(Snippets);
-    snippets.use(VueAxios, axios);
-    snippets.mount('#js-vue-snippets-container');
+    const app = createApp(App);
+    app.use(VueAxios, axios);
+    app.mount('#js-vue-snippets-container');
 }

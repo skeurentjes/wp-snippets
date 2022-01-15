@@ -10,17 +10,17 @@ import hljs from "highlight.js";
 import 'highlight.js/styles/a11y-dark.css';
 
 export default {
-    name: 'SnippetsArticle',
+    name: 'Post',
     props: ['title', 'content'],
     watch: {
         content: function (val) {
             this.$nextTick(function () {
-                this.renderHighlight();
+                this.initHighlightJS();
             })
         }
     },
     methods: {
-        renderHighlight() {
+        initHighlightJS() {
             const $code = document.querySelectorAll('.m-content pre');
             $code.forEach(el => {
                 hljs.highlightElement(el);

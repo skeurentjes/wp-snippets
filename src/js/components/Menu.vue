@@ -2,18 +2,18 @@
     <nav class="m-snippets-menu">
         <ul class="m-snippets-menu__listing">
             <li 
-                v-for="snippet in this.snippets" 
-                :key="snippet.id"
+                v-for="post in this.posts"
+                :key="post.id"
                 class="m-snippets-menu__item"
             >
                 <a 
-                    :href="snippet._links.self[0].href"
-                    :title="snippet.title.rendered"
+                    :href="post._links.self[0].href"
+                    :title="post.title.rendered"
                     class="m-snippets-menu__link"
-                    :class="{ 'is-active' : activeUrl === snippet._links.self[0].href }"
-                    @click.prevent="$emit('update-url', snippet._links.self[0].href)"
+                    :class="{ 'is-active' : activeUrl === post._links.self[0].href }"
+                    @click.prevent="$emit('update-url', post._links.self[0].href)"
                 >
-                    {{ snippet.title.rendered }}
+                    {{ post.title.rendered }}
                 </a>
             </li>
         </ul>
@@ -21,9 +21,9 @@
 </template>
 <script>
 export default {
-    name: 'SnippetMenu',
+    name: 'Menu',
     props: {
-        snippets: Array,
+        posts: Array,
         activeUrl: String,
     },
     methods: {
