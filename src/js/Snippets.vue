@@ -70,19 +70,5 @@ export default {
             console.warn({error});
         });
     },
-
-    /*
-    // Using the REST API endpoint set in the functions folder
-    mounted() {
-        fetch('http://localhost/wordpress/wp-json/snippets/v1/snippet')
-            // .then((r) => r.json())
-            // .then((res) => this.markers = res.map(x => x.acf))
-            .then(response => {
-                console.log({response});
-                this.snippets = response.json();
-                console.log(this.snippets);
-            });
-    }
-    */
 }
 </script>

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "highlight.js": "^11.4.0",
     "vue": "^3.2.26",
     "vue-axios": "^3.4.0"
   }

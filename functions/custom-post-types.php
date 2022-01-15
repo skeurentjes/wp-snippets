@@ -22,7 +22,7 @@ function create_snippet_posttype() {
         'description'         => __( 'snippet', 'sk' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
-        'taxonomies'          => array( 'snippet category' ),
+        'taxonomies'          => array( 'snippet category', 'post_tag' ),
         'hierarchical'        => true,
         'public'              => true,
         'show_ui'             => true,
