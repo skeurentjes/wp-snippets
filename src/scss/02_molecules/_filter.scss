@@ -1,0 +1,29 @@
+.m-filter {
+  margin-bottom: var(--gutter-width-small);
+  padding: var(--gutter-width-small);
+  background-color: var(--color-gray-dark);
+  border-radius: var(--border-radius);
+
+  &__title {
+    margin-bottom: var(--gutter-width-small);
+  }
+
+  &__listing {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: var(--gutter-width-smallest);
+
+    &:not(:last-of-type) {
+      margin-bottom: var(--gutter-width-small);
+      padding-bottom: var(--gutter-width-small);
+      border-bottom: 1px solid var(--color-gray);
+    }
+  }
+
+  &__temp {
+    padding: 0.5rem;
+    background-color: var(--color-gray);
+    font-size: 1rem;
+  }
+}

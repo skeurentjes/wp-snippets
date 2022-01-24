@@ -1,21 +1,25 @@
 <template>
     <nav class="m-snippets-menu">
         <ul class="m-snippets-menu__listing">
-            <li 
-                v-for="post in this.posts"
-                :key="post.id"
-                class="m-snippets-menu__item"
+            <template
+                v-for="(post, index) in this.posts"
+                :key="index"
             >
-                <a 
-                    :href="post._links.self[0].href"
-                    :title="post.title.rendered"
-                    class="m-snippets-menu__link"
-                    :class="{ 'is-active' : activeUrl === post._links.self[0].href }"
-                    @click.prevent="$emit('update-url', post._links.self[0].href)"
+                <li
+                    class="m-snippets-menu__item"
+                    v-if="isActive(post.snippet_categories)"
                 >
-                    {{ post.title.rendered }}
-                </a>
-            </li>
+                    <a
+                        :href="post._links.self[0].href"
+                        :title="post.title.rendered"
+                        class="m-snippets-menu__link"
+                        :class="{ 'is-active' : activeUrl === post._links.self[0].href }"
+                        @click.prevent="$emit('update-url', post._links.self[0].href)"
+                    >
+                        {{ post.title.rendered }}
+                    </a>
+                </li>
+            </template>
         </ul>
     </nav>
 </template>
@@ -25,11 +29,26 @@ export default {
     props: {
         posts: Array,
         activeUrl: String,
+        activeCategories: Array,
+        categories: Array,
     },
     methods: {
-        isActive() {
-            return true;
-        }
+        isActive(array) {
+            let isActive = false;
+            const activeCats = this.activeCategories;
+
+            array.forEach((el) => {
+                if (activeCats.includes(el)) {
+                    isActive = true;
+                }
+            });
+
+            if (this.activeCategories.length === 0) {
+                return true;
+            }
+
+            return isActive;
+        },
     }
 }
 </script>

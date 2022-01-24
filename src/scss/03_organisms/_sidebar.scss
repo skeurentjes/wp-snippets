@@ -1,0 +1,38 @@
+.o-sidebar {
+  position: relative;
+
+  &__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-50%);
+    transition: all var(--animation-duration) ease;
+    display: flex;
+    width: 200%;
+    height: 100%;
+    background-color: var(--color-gray-darkest);
+
+    &.is-active {
+      transform: translateX(0);
+    }
+  }
+
+  &__filters,
+  &__menu {
+    position: relative;
+    flex: 0 0 50%;
+    padding: var(--gutter-width);
+  }
+
+  &__filters {
+    background-color: var(--color-black);
+  }
+
+  &__menu {
+
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

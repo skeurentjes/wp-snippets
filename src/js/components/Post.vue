@@ -1,6 +1,8 @@
 <template>
     <article class="m-content">
         <h1 class="a-title">{{ this.title }}</h1>
+        <!-- Todo: Add categories -->
+        <!-- Todo: Add tags -->
         <div v-html="this.content" />
     </article>
 </template>
