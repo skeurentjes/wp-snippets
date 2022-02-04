@@ -19,12 +19,31 @@
                                 v-for="(category, index) in this.categories"
                                 class="m-filter__item"
                             >
-                                <Category
+                                <Filter
                                     :key="index"
                                     :id="category.id"
                                     :name="category.name"
                                     :value="category.name"
+                                    :input-type="'checkbox'"
                                     @change="updateActiveCategories(category.id)"
+                                />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="m-filter">
+                        <h2 class="a-subtitle m-filter__title">Tags</h2>
+                        <ul class="m-filter__listing m-filter__listing--inline">
+                            <li
+                                v-for="(tag, index) in this.tags"
+                                class="m-filter__item m-filter__item--inline"
+                            >
+                                <Filter
+                                    :key="index"
+                                    :id="tag.id"
+                                    :name="tag.name"
+                                    :value="tag.name"
+                                    :input-type="'label'"
+                                    @change="updateActiveTags(tag.id)"
                                 />
                             </li>
                         </ul>
@@ -33,7 +52,8 @@
 
                 <div class="o-sidebar__menu">
                     <a
-                        class="a-btn a-btn--primary o-sidebar__button"
+                        class="a-btn a-btn--ghost o-sidebar__button"
+                        :class="{ 'is-active' : this.isFiltersActive}"
                         href="#"
                         title="Toggle filters"
                         @click.prevent="toggleFilters"
@@ -45,6 +65,8 @@
                         :active-url="activeUrl"
                         :active-categories="activeCategories"
                         :categories="postCategories"
+                        :active-tags="activeTags"
+                        :tags="postTags"
                         @update-url="updateUrl"
                     />
                 </div>
@@ -72,15 +94,17 @@
 
 import Menu from './components/Menu.vue';
 import Post from './components/Post.vue';
-import Category from "./components/Category";
+import Filter from "./components/Filter";
 
 export default {
     name: 'App',
     components: {
         Menu,
         Post,
-        Category,
+        Filter,
     },
+
+    props: ['inputType'],
 
     data () {
       return {
@@ -91,6 +115,7 @@ export default {
           categories: [],
           activeCategories: [],
           postCategories: [],
+          tags: [],
           activeTags: [],
           postTags: [],
           isFiltersActive: false,
@@ -121,9 +146,9 @@ export default {
         },
 
         updateActiveTags(tag) {
-            this.activeCategories.includes(tag)
-                ? this.activeCategories = this.activeCategories.filter(value => value !== tag)
-                : this.activeCategories.push(tag);
+            this.activeTags.includes(tag)
+                ? this.activeTags = this.activeTags.filter(value => value !== tag)
+                : this.activeTags.push(tag);
         },
 
         toggleFilters() {
@@ -133,14 +158,20 @@ export default {
     },
 
     created() {
-        let postCats = this.postCategories;
+        let postCategories = this.postCategories;
+        let postTags = this.postTags;
 
         const posts = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet`).then(response => {
             this.posts = response.data;
             response.data.forEach(function (el) {
                 el.snippet_categories.forEach(function (id) {
-                    if (!postCats.includes(id)) {
-                        postCats.push(id);
+                    if (!postCategories.includes(id)) {
+                        postCategories.push(id);
+                    }
+                });
+                el.tags.forEach(function (id) {
+                    if (!postTags.includes(id)) {
+                        postTags.push(id);
                     }
                 });
             });
@@ -155,7 +186,7 @@ export default {
         });
 
         const tags = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/tags`).then(response => {
-            this.categories = response.data;
+            this.tags = response.data;
             console.log(response.data);
         }).catch(error => {
             console.warn({error});

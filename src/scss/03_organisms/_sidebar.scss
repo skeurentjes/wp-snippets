@@ -29,10 +29,14 @@
   }
 
   &__menu {
-
+    position: relative;
+    padding-bottom: 5rem;
   }
 
   &__button {
-    width: 100%;
+    position: absolute;
+    right: var(--gutter-width-small);
+    bottom: var(--gutter-width-small);
+    left: var(--gutter-width-small);
   }
 }
