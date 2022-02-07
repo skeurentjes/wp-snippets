@@ -17,6 +17,7 @@
                         @click.prevent="$emit('update-url', post._links.self[0].href)"
                     >
                         {{ post.title.rendered }}
+                        <!-- Todo: Add tags and categories -->
                     </a>
                 </li>
             </template>

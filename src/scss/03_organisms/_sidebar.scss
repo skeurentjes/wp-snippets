@@ -38,5 +38,9 @@
     right: var(--gutter-width-small);
     bottom: var(--gutter-width-small);
     left: var(--gutter-width-small);
+
+    &--icon {
+      margin-right: 1rem;
+    }
   }
 }

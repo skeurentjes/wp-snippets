@@ -29,5 +29,6 @@
 
     &__main {
         padding: var(--gutter-width);
+        overflow-y: auto;
     }
 }

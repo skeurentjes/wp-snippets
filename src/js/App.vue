@@ -58,6 +58,7 @@
                         title="Toggle filters"
                         @click.prevent="toggleFilters"
                     >
+                        <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 512 512"><icon-filter /></icon-base>
                         {{ buttonFiltersTitle }}
                     </a>
                     <Menu
@@ -79,10 +80,13 @@
                     v-if="activeUrl"
                     :title="postTitle"
                     :content="postContent"
+                    :example="example"
+                    :code="code"
                 />
                 <template v-else>
                     <article>
-                        <h1 class="a-title">Dashboard</h1>
+                        <h1 class="a-title">Choose a snippet</h1>
+                        <p>Please choose a snippet from the menu on the left hand.</p>
                     </article>
                 </template>
             </section>
@@ -94,7 +98,9 @@
 
 import Menu from './components/Menu.vue';
 import Post from './components/Post.vue';
-import Filter from "./components/Filter";
+import Filter from './components/Filter';
+import IconBase from './components/IconBase';
+import IconFilter from './components/icons/IconFilter';
 
 export default {
     name: 'App',
@@ -102,9 +108,9 @@ export default {
         Menu,
         Post,
         Filter,
+        IconBase,
+        IconFilter,
     },
-
-    props: ['inputType'],
 
     data () {
       return {
@@ -112,6 +118,8 @@ export default {
           activeUrl: '',
           postTitle: '',
           postContent: '',
+          code: '',
+          example: '',
           categories: [],
           activeCategories: [],
           postCategories: [],
@@ -132,8 +140,11 @@ export default {
         fetchArticle(url) {
             this.axios.get(url).then(response => {
                 console.log(response.data)
+                console.log(response.data.acf)
                 this.postTitle = response.data.title.rendered;
                 this.postContent = response.data.content.rendered;
+                this.example = response.data.acf.example;
+                this.code = response.data.acf.code;
             }).catch(error => {
                 console.warn({error});
             });

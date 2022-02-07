@@ -48,3 +48,13 @@ svg {
   max-height: 100%;
   fill: currentColor;
 }
+
+iframe {
+  width: 100%;
+  max-width: 100%;
+  min-height: 640px;
+  overflow: hidden;
+  background-color: var(--color-gray-darkest);
+  border: solid 4px var(--color-gray);
+  border-radius: var(--border-radius);
+}
