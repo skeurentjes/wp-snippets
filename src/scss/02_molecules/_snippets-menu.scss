@@ -6,24 +6,32 @@
 
   &__item {
     margin-bottom: calc(var(--gutter-width) / 4);
+
+    &.list-enter-active,
+    &.list-leave-active {
+      transition: all var(--animation-duration) ease;
+    }
+
+    &.list-enter-from,
+    &.list-leave-to {
+      opacity: 0;
+      transform: translateX(-3rem);
+    }
   }
 
   &__link {
     display: block;
     padding: calc(var(--gutter-width) / 4) calc(var(--gutter-width) / 2);
     border-radius: var(--border-radius);
+    font-weight: 600;
     color: var(--color-white);
-    transition: all 250ms ease;
+    transition: background-color 250ms ease, color 250ms ease;
 
     &.is-active,
     &:hover {
       background-color: var(--color-gray-dark);
       text-decoration: none;
       color: var(--color-primary);
-    }
-
-    &.is-active {
-      font-weight: 700;
     }
   }
 }

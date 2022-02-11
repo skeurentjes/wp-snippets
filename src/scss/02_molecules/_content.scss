@@ -1,9 +1,47 @@
 .m-content {
+  $self: &;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  margin: auto;
+
+  ul {
+    list-style: disc outside;
+    margin-left: var(--gutter-width);
+    margin-bottom: var(--gutter-width);
+  }
+
   pre {
+    position: relative;
     padding: var(--gutter-width);
     margin-bottom: var(--gutter-width);
     background-color: var(--color-gray-darkest);
     border: solid 4px var(--color-gray);
     border-radius: var(--border-radius-large);
+  }
+
+  &__label {
+    position: absolute;
+    top: var(--gutter-width-small);
+    right: var(--gutter-width-small);
+    padding: 0.25rem 1.5rem;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--color-white);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    pointer-events: none;
+
+    &--html {
+
+    }
+
+    &--css {
+
+    }
+
+    &--js {
+
+    }
   }
 }

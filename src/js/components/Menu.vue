@@ -5,21 +5,26 @@
                 v-for="(post, index) in this.posts"
                 :key="index"
             >
-                <li
-                    class="m-snippets-menu__item"
-                    v-if="isActive(post.snippet_categories)"
+                <transition-group
+                    name="list"
+                    tag="li"
                 >
-                    <a
-                        :href="post._links.self[0].href"
-                        :title="post.title.rendered"
-                        class="m-snippets-menu__link"
-                        :class="{ 'is-active' : activeUrl === post._links.self[0].href }"
-                        @click.prevent="$emit('update-url', post._links.self[0].href)"
+                    <li
+                        class="m-snippets-menu__item"
+                        v-if="isActive(post.snippet_categories, post.tags)"
                     >
-                        {{ post.title.rendered }}
-                        <!-- Todo: Add tags and categories -->
-                    </a>
-                </li>
+                        <a
+                            :href="post._links.self[0].href"
+                            :title="post.title.rendered"
+                            class="m-snippets-menu__link"
+                            :class="{ 'is-active' : activeUrl === post._links.self[0].href }"
+                            @click.prevent="$emit('update-url', post._links.self[0].href)"
+                        >
+                            {{ post.title.rendered }}
+                            <!-- Todo: Add tags and categories -->
+                        </a>
+                    </li>
+                </transition-group>
             </template>
         </ul>
     </nav>
@@ -32,20 +37,30 @@ export default {
         activeUrl: String,
         activeCategories: Array,
         categories: Array,
+        activeTags: Array,
+        tags: Array,
     },
     methods: {
-        isActive(array) {
+        isActive(categories, tags) {
             let isActive = false;
             const activeCats = this.activeCategories;
+            const activeTags = this.activeTags;
 
-            array.forEach((el) => {
+            categories.forEach((el) => {
                 if (activeCats.includes(el)) {
                     isActive = true;
                 }
             });
 
-            if (this.activeCategories.length === 0) {
-                return true;
+            tags.forEach((el) => {
+                if (activeTags.includes(el)) {
+                    isActive = true;
+                }
+            });
+
+            // Show if active category array and active tag array are all empty
+            if (this.activeCategories.length === 0 && this.activeTags.length === 0) {
+                isActive = true;
             }
 
             return isActive;

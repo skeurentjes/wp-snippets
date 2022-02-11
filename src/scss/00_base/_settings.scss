@@ -59,6 +59,10 @@
   --subtitle-line-height: 1.2;
   --subtitle-text-transform: none;
 
+  // Scrollbars
+  --scrollbar-foreground: var(--color-gray-darkest);
+  --scrollbar-background: var(--color-gray);
+
   // Set root font size to 10px for using rem units
   font-size: 10px;
 }
@@ -66,8 +70,18 @@
 @media screen and (min-width: 768px) {
   :root {
     --gutter-width: 4rem;
+    --font-size: 1.4rem;
+    --line-height: 2;
+    --title-font-size: 2.8rem;
+    --subtitle-font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :root {
+    --gutter-width: 4rem;
     --font-size: 1.6rem;
-    --line-height: 1.8;
+    --line-height: 2;
     --title-font-size: 2.8rem;
     --subtitle-font-size: 2rem;
   }

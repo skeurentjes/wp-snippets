@@ -2,6 +2,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+  scrollbar-width: thin;
 }
 
 body {
@@ -15,8 +17,24 @@ body {
   overflow: hidden;
 }
 
+::-webkit-scrollbar
+{
+  width: 5px;
+}
+
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background: var(--scrollbar-background);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: var(--scrollbar-foreground);
+}
+
 p {
-  margin-bottom: var(--font-size);
+  margin-bottom: var(--gutter-width);
 }
 
 a {
@@ -52,8 +70,9 @@ svg {
 iframe {
   width: 100%;
   max-width: 100%;
-  min-height: 640px;
+  height: 800px;
   overflow: hidden;
+  margin-top: -2rem;
   background-color: var(--color-gray-darkest);
   border: solid 4px var(--color-gray);
   border-radius: var(--border-radius);

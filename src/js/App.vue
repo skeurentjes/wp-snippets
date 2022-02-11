@@ -52,14 +52,14 @@
 
                 <div class="o-sidebar__menu">
                     <a
-                        class="a-btn a-btn--ghost o-sidebar__button"
+                        class="o-sidebar__button"
                         :class="{ 'is-active' : this.isFiltersActive}"
                         href="#"
                         title="Toggle filters"
                         @click.prevent="toggleFilters"
                     >
                         <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 512 512"><icon-filter /></icon-base>
-                        {{ buttonFiltersTitle }}
+                        <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 320 512"><icon-close /></icon-base>
                     </a>
                     <Menu
                         :posts="posts"
@@ -75,7 +75,7 @@
         </aside>
 
         <main class="o-app__main" role="main">
-            <section>
+            <section class="m-content">
                 <Post
                     v-if="activeUrl"
                     :title="postTitle"
@@ -101,6 +101,7 @@ import Post from './components/Post.vue';
 import Filter from './components/Filter';
 import IconBase from './components/IconBase';
 import IconFilter from './components/icons/IconFilter';
+import IconClose from './components/icons/IconClose';
 
 export default {
     name: 'App',
@@ -110,6 +111,7 @@ export default {
         Filter,
         IconBase,
         IconFilter,
+        IconClose,
     },
 
     data () {
@@ -139,15 +141,22 @@ export default {
 
         fetchArticle(url) {
             this.axios.get(url).then(response => {
-                console.log(response.data)
-                console.log(response.data.acf)
                 this.postTitle = response.data.title.rendered;
                 this.postContent = response.data.content.rendered;
                 this.example = response.data.acf.example;
                 this.code = response.data.acf.code;
+                this.getPostCategories(response.data.snippet_categories);
             }).catch(error => {
                 console.warn({error});
             });
+
+            console.log('Categories');
+            console.log(this.categories);
+        },
+
+        getPostCategories(array) {
+            console.log('Array');
+            console.log(array);
         },
 
         updateActiveCategories(category) {
@@ -164,7 +173,6 @@ export default {
 
         toggleFilters() {
             this.isFiltersActive = !this.isFiltersActive;
-            this.isFiltersActive ? this.buttonFiltersTitle = 'Hide filters' : this.buttonFiltersTitle = 'Show filters';
         },
     },
 
@@ -198,7 +206,6 @@ export default {
 
         const tags = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/tags`).then(response => {
             this.tags = response.data;
-            console.log(response.data);
         }).catch(error => {
             console.warn({error});
         });

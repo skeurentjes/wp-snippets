@@ -1,4 +1,4 @@
-<template v-if="this.inputType === 'checkbox'">
+<template>
     <label
         v-if="this.inputType === 'checkbox'"
         class="m-checkbox-label"
@@ -37,8 +37,5 @@ export default {
             checked: false,
         }
     },
-    mounted() {
-        console.log(this.inputType);
-    }
 }
 </script>

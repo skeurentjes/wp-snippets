@@ -1,4 +1,6 @@
 .o-sidebar {
+  $self: &;
+
   position: relative;
 
   &__container {
@@ -14,6 +16,21 @@
 
     &.is-active {
       transform: translateX(0);
+
+      #{$self}__button {
+        left: 0;
+        transform: translateX(-50%);
+
+        &--icon {
+          &:nth-of-type(1) {
+            opacity: 0;
+          }
+
+          &:nth-of-type(2) {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 
@@ -31,16 +48,49 @@
   &__menu {
     position: relative;
     padding-bottom: 5rem;
+    border-left: 4px solid var(--color-primary);
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to top, var(--color-primary), var(--color-secondary));
   }
 
   &__button {
     position: absolute;
-    right: var(--gutter-width-small);
     bottom: var(--gutter-width-small);
     left: var(--gutter-width-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    width: 6rem;
+    height: 6rem;
+    padding: 0;
+    margin-left: -2px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    color: var(--color-white);
+    transition: all var(--animation-duration) ease;
+
+    &:hover {
+      background-color: var(--color-primary-hover);
+      color: var(--color-white);
+    }
 
     &--icon {
-      margin-right: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2rem;
+      height: 2rem;
+      transition: all var(--animation-duration) ease;
+
+      &:nth-of-type(1) {
+        opacity: 1;
+      }
+
+      &:nth-of-type(2) {
+        opacity: 0;
+      }
     }
   }
 }
