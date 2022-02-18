@@ -1,4 +1,6 @@
 .m-snippets-menu {
+  $self: &;
+
   &__listing {
     margin: 0;
     padding: 0;
@@ -32,6 +34,47 @@
       background-color: var(--color-gray-dark);
       text-decoration: none;
       color: var(--color-primary);
+
+      #{$self}__category {
+        color: var(--color-white);
+        border-color: var(--color-white);
+      }
+    }
+  }
+
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0 0 0;
+  }
+
+  &__category {
+    display: inline-flex;
+    padding: 0.1rem 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-gray-dark);
+    border-radius: var(--border-radius-small);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-white);
+    transition: border-color 250ms ease, color 250ms ease;
+
+    &--css {
+      border-color: var(--color-css);
+      color: var(--color-css);
+    }
+
+    &--javascript {
+      border-color: var(--color-js);
+      color: var(--color-js);
+    }
+
+    &--vue {
+      border-color: var(--color-vue);
+      color: var(--color-vue);
     }
   }
 }

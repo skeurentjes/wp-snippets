@@ -25,7 +25,7 @@
                                     :name="category.name"
                                     :value="category.name"
                                     :input-type="'checkbox'"
-                                    @change="updateActiveCategories(category.id)"
+                                    @change="updateactiveCategoryIds(category.id)"
                                 />
                             </li>
                         </ul>
@@ -43,7 +43,7 @@
                                     :name="tag.name"
                                     :value="tag.name"
                                     :input-type="'label'"
-                                    @change="updateActiveTags(tag.id)"
+                                    @change="updateactiveTagIds(tag.id)"
                                 />
                             </li>
                         </ul>
@@ -64,10 +64,11 @@
                     <Menu
                         :posts="posts"
                         :active-url="activeUrl"
-                        :active-categories="activeCategories"
-                        :categories="postCategories"
-                        :active-tags="activeTags"
-                        :tags="postTags"
+                        :active-category-ids="activeCategoryIds"
+                        :post-category-ids="postCategoryIds"
+                        :active-tag-ids="activeTagIds"
+                        :post-tag-ids="postTagIds"
+                        :categories="categories"
                         @update-url="updateUrl"
                     />
                 </div>
@@ -123,13 +124,12 @@ export default {
           code: '',
           example: '',
           categories: [],
-          activeCategories: [],
-          postCategories: [],
+          activeCategoryIds: [],
+          postCategoryIds: [],
           tags: [],
-          activeTags: [],
-          postTags: [],
+          activeTagIds: [],
+          postTagIds: [],
           isFiltersActive: false,
-          buttonFiltersTitle: 'Show filters',
       }
     },
 
@@ -145,30 +145,21 @@ export default {
                 this.postContent = response.data.content.rendered;
                 this.example = response.data.acf.example;
                 this.code = response.data.acf.code;
-                this.getPostCategories(response.data.snippet_categories);
             }).catch(error => {
                 console.warn({error});
             });
-
-            console.log('Categories');
-            console.log(this.categories);
         },
 
-        getPostCategories(array) {
-            console.log('Array');
-            console.log(array);
+        updateactiveCategoryIds(category) {
+            this.activeCategoryIds.includes(category)
+                ? this.activeCategoryIds = this.activeCategoryIds.filter(value => value !== category)
+                : this.activeCategoryIds.push(category);
         },
 
-        updateActiveCategories(category) {
-            this.activeCategories.includes(category)
-                ? this.activeCategories = this.activeCategories.filter(value => value !== category)
-                : this.activeCategories.push(category);
-        },
-
-        updateActiveTags(tag) {
-            this.activeTags.includes(tag)
-                ? this.activeTags = this.activeTags.filter(value => value !== tag)
-                : this.activeTags.push(tag);
+        updateactiveTagIds(tag) {
+            this.activeTagIds.includes(tag)
+                ? this.activeTagIds = this.activeTagIds.filter(value => value !== tag)
+                : this.activeTagIds.push(tag);
         },
 
         toggleFilters() {
@@ -177,20 +168,20 @@ export default {
     },
 
     created() {
-        let postCategories = this.postCategories;
-        let postTags = this.postTags;
+        let postCategoryIds = this.postCategoryIds;
+        let postTagIds = this.postTagIds;
 
         const posts = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet`).then(response => {
             this.posts = response.data;
             response.data.forEach(function (el) {
                 el.snippet_categories.forEach(function (id) {
-                    if (!postCategories.includes(id)) {
-                        postCategories.push(id);
+                    if (!postCategoryIds.includes(id)) {
+                        postCategoryIds.push(id);
                     }
                 });
                 el.tags.forEach(function (id) {
-                    if (!postTags.includes(id)) {
-                        postTags.push(id);
+                    if (!postTagIds.includes(id)) {
+                        postTagIds.push(id);
                     }
                 });
             });

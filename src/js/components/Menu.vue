@@ -7,7 +7,7 @@
             >
                 <transition-group
                     name="list"
-                    tag="li"
+                    postTagIds="li"
                 >
                     <li
                         class="m-snippets-menu__item"
@@ -21,7 +21,19 @@
                             @click.prevent="$emit('update-url', post._links.self[0].href)"
                         >
                             {{ post.title.rendered }}
-                            <!-- Todo: Add tags and categories -->
+                            <!-- Todo: Add tags and postCategoryIds -->
+                            <span
+                                class="m-snippets-menu__categories"
+                                v-if="post.snippet_categories.length"
+                            >
+                                <span
+                                    v-for="category in post.snippet_categories"
+                                    class="m-snippets-menu__category"
+                                    :class="'m-snippets-menu__category--' + renderCategoryTitle(category).toLowerCase()"
+                                >
+                                    {{ renderCategoryTitle(category) }}
+                                </span>
+                            </span>
                         </a>
                     </li>
                 </transition-group>
@@ -35,37 +47,48 @@ export default {
     props: {
         posts: Array,
         activeUrl: String,
-        activeCategories: Array,
+        activeCategoryIds: Array,
+        postCategoryIds: Array,
+        activeTagIds: Array,
+        postTagIds: Array,
         categories: Array,
-        activeTags: Array,
-        tags: Array,
     },
     methods: {
-        isActive(categories, tags) {
+        isActive(postCategoryIds, tags) {
             let isActive = false;
-            const activeCats = this.activeCategories;
-            const activeTags = this.activeTags;
+            const activeCats = this.activeCategoryIds;
+            const activeTagIds = this.activeTagIds;
 
-            categories.forEach((el) => {
+            postCategoryIds.forEach((el) => {
                 if (activeCats.includes(el)) {
                     isActive = true;
                 }
             });
 
             tags.forEach((el) => {
-                if (activeTags.includes(el)) {
+                if (activeTagIds.includes(el)) {
                     isActive = true;
                 }
             });
 
-            // Show if active category array and active tag array are all empty
-            if (this.activeCategories.length === 0 && this.activeTags.length === 0) {
+            // Show if active category array and active postTagIds array are all empty
+            if (this.activeCategoryIds.length === 0 && this.activeTagIds.length === 0) {
                 isActive = true;
             }
 
             return isActive;
         },
-    }
+        renderCategoryTitle(id) {
+            let name = null;
+
+            this.categories.forEach((item) => {
+                if (item.id === id) {
+                    name = item.name;
+                }
+            });
+            return name;
+        },
+    },
 }
 </script>
 <style>
