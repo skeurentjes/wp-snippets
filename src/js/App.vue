@@ -51,16 +51,6 @@
                 </div>
 
                 <div class="o-sidebar__menu">
-                    <a
-                        class="o-sidebar__button"
-                        :class="{ 'is-active' : this.isFiltersActive}"
-                        href="#"
-                        title="Toggle filters"
-                        @click.prevent="toggleFilters"
-                    >
-                        <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 512 512"><icon-filter /></icon-base>
-                        <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 320 512"><icon-close /></icon-base>
-                    </a>
                     <Menu
                         :posts="posts"
                         :active-url="activeUrl"
@@ -69,10 +59,21 @@
                         :active-tag-ids="activeTagIds"
                         :post-tag-ids="postTagIds"
                         :categories="categories"
+                        :tags="tags"
                         @update-url="updateUrl"
                     />
                 </div>
             </div>
+            <a
+                class="o-sidebar__button"
+                :class="{ 'is-active' : this.isFiltersActive}"
+                href="#"
+                title="Toggle filters"
+                @click.prevent="toggleFilters"
+            >
+                <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 512 512"><icon-filter /></icon-base>
+                <icon-base class="o-sidebar__button--icon" icon-name="filter" view-box="0 0 320 512"><icon-close /></icon-base>
+            </a>
         </aside>
 
         <main class="o-app__main" role="main">

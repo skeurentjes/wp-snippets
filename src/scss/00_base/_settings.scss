@@ -1,13 +1,11 @@
 :root {
   // Colors
-  --color-primary: #e5007e;
-  --color-primary-hover: #ce0071;
-  --color-secondary: #8b358a;
-  --color-secondary-hover: #7d307c;
-  --color-tertiary: #71caf3;
-  --color-tertiary-hover: #50bef0;
-  --color-quaternary: #2baee5;
-  --color-quaternary-hover: #1ba1da;
+  --color-primary: #4361ee;
+  --color-primary-hover: #3f37c9;
+  --color-secondary: #f72585;
+  --color-secondary-hover: #b5179e;
+  --color-tertiary: #480ca8;
+  --color-tertiary-hover: #3a0ca3;
 
   --color-white: #ffffff;
   --color-black: #000000;
@@ -15,15 +13,16 @@
   --color-gray-lightest: #e0e0e0;
   --color-gray-light: #c5c5c5;
   --color-gray: #303030;
-  --color-gray-dark: #202020;
-  --color-gray-darkest: #101010;
+  --color-gray-dark: #151515;
+  --color-gray-darker: #101010;
+  --color-gray-darkest: #0e0e0e;
 
   --color-valid: #9AC836;
   --color-error: #cf2972;
 
-  --color-css: #f06529;
-  --color-js: #f0db4f;
-  --color-vue: #42b883;
+  --color-css: var(--color-primary);
+  --color-js: var(--color-secondary);
+  --color-vue: var(--color-tertiary);
 
   // Miscellaneous
   --body-color: var(--color-gray-dark);

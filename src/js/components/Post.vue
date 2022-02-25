@@ -41,6 +41,9 @@ export default {
         initHighlightJS() {
             const $code = document.querySelectorAll('.m-content pre');
             $code.forEach(el => {
+                hljs.configure({
+                    languages: ['html', 'css', 'js']
+                });
                 hljs.highlightElement(el);
                 const lang = el.getAttribute('class');
                 this.appendLanguageType(el, lang);

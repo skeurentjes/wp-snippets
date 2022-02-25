@@ -7,7 +7,6 @@
             >
                 <transition-group
                     name="list"
-                    postTagIds="li"
                 >
                     <li
                         class="m-snippets-menu__item"
@@ -21,7 +20,7 @@
                             @click.prevent="$emit('update-url', post._links.self[0].href)"
                         >
                             {{ post.title.rendered }}
-                            <!-- Todo: Add tags and postCategoryIds -->
+                            <!-- Render the categories -->
                             <span
                                 class="m-snippets-menu__categories"
                                 v-if="post.snippet_categories.length"
@@ -32,6 +31,19 @@
                                     :class="'m-snippets-menu__category--' + renderCategoryTitle(category).toLowerCase()"
                                 >
                                     {{ renderCategoryTitle(category) }}
+                                </span>
+                            </span>
+                            <!-- Render the tags -->
+                            <span
+                                class="m-snippets-menu__tags"
+                                v-if="post.tags.length"
+                            >
+                                <span
+                                    v-for="tag in post.tags"
+                                    class="m-snippets-menu__tag"
+                                    :class="'m-snippets-menu__tag--' + renderTagTitle(tag).toLowerCase()"
+                                >
+                                    {{ renderTagTitle(tag) }}
                                 </span>
                             </span>
                         </a>
@@ -52,6 +64,7 @@ export default {
         activeTagIds: Array,
         postTagIds: Array,
         categories: Array,
+        tags: Array,
     },
     methods: {
         isActive(postCategoryIds, tags) {
@@ -82,6 +95,16 @@ export default {
             let name = null;
 
             this.categories.forEach((item) => {
+                if (item.id === id) {
+                    name = item.name;
+                }
+            });
+            return name;
+        },
+        renderTagTitle(id) {
+            let name = null;
+
+            this.tags.forEach((item) => {
                 if (item.id === id) {
                     name = item.name;
                 }
