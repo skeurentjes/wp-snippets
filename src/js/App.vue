@@ -4,6 +4,7 @@
         <div
             class="o-app__backdrop"
             :class="{ 'is-active' : this.isFiltersActive}"
+            @click.prevent="toggleFilters"
         />
 
         <aside class="o-app__sidebar o-sidebar">
@@ -16,17 +17,9 @@
                         <h2 class="a-subtitle m-filter__title">Categories</h2>
                         <ul class="m-filter__listing">
                             <li
-                                v-for="(category, index) in this.categories"
                                 class="m-filter__item"
                             >
-                                <Filter
-                                    :key="index"
-                                    :id="category.id"
-                                    :name="category.name"
-                                    :value="category.name"
-                                    :input-type="'checkbox'"
-                                    @change="updateactiveCategoryIds(category.id)"
-                                />
+                                Category
                             </li>
                         </ul>
                     </div>
@@ -34,34 +27,16 @@
                         <h2 class="a-subtitle m-filter__title">Tags</h2>
                         <ul class="m-filter__listing m-filter__listing--inline">
                             <li
-                                v-for="(tag, index) in this.tags"
                                 class="m-filter__item m-filter__item--inline"
                             >
-                                <Filter
-                                    :key="index"
-                                    :id="tag.id"
-                                    :name="tag.name"
-                                    :value="tag.name"
-                                    :input-type="'label'"
-                                    @change="updateactiveTagIds(tag.id)"
-                                />
+                                Tag
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="o-sidebar__menu">
-                    <Menu
-                        :posts="posts"
-                        :active-url="activeUrl"
-                        :active-category-ids="activeCategoryIds"
-                        :post-category-ids="postCategoryIds"
-                        :active-tag-ids="activeTagIds"
-                        :post-tag-ids="postTagIds"
-                        :categories="categories"
-                        :tags="tags"
-                        @update-url="updateUrl"
-                    />
+                    <Posts />
                 </div>
             </div>
             <a
@@ -78,19 +53,7 @@
 
         <main class="o-app__main" role="main">
             <section class="m-content">
-                <Post
-                    v-if="activeUrl"
-                    :title="postTitle"
-                    :content="postContent"
-                    :example="example"
-                    :code="code"
-                />
-                <template v-else>
-                    <article>
-                        <h1 class="a-title">Choose a snippet</h1>
-                        <p>Please choose a snippet from the menu on the left hand.</p>
-                    </article>
-                </template>
+                <router-view></router-view>
             </section>
         </main>
     </div>
@@ -98,19 +61,20 @@
 
 <script>
 
-import Menu from './components/Menu.vue';
+import Dashboard from "./components/Dashboard";
+import Posts from './components/Posts';
 import Post from './components/Post.vue';
-import Filter from './components/Filter';
 import IconBase from './components/IconBase';
 import IconFilter from './components/icons/IconFilter';
 import IconClose from './components/icons/IconClose';
+import { useRouter, useRoute } from 'vue-router';
 
 export default {
     name: 'App',
     components: {
-        Menu,
+        Dashboard,
+        Posts,
         Post,
-        Filter,
         IconBase,
         IconFilter,
         IconClose,
@@ -119,88 +83,32 @@ export default {
     data () {
       return {
           posts: [],
-          activeUrl: '',
-          postTitle: '',
-          postContent: '',
-          code: '',
-          example: '',
-          categories: [],
-          activeCategoryIds: [],
-          postCategoryIds: [],
-          tags: [],
-          activeTagIds: [],
-          postTagIds: [],
+          post: [],
           isFiltersActive: false,
       }
     },
 
     methods: {
-        updateUrl(url) {
-            this.activeUrl = url;
-            this.fetchArticle(url);
-        },
-
-        fetchArticle(url) {
-            this.axios.get(url).then(response => {
-                this.postTitle = response.data.title.rendered;
-                this.postContent = response.data.content.rendered;
-                this.example = response.data.acf.example;
-                this.code = response.data.acf.code;
-            }).catch(error => {
-                console.warn({error});
-            });
-        },
-
-        updateactiveCategoryIds(category) {
-            this.activeCategoryIds.includes(category)
-                ? this.activeCategoryIds = this.activeCategoryIds.filter(value => value !== category)
-                : this.activeCategoryIds.push(category);
-        },
-
-        updateactiveTagIds(tag) {
-            this.activeTagIds.includes(tag)
-                ? this.activeTagIds = this.activeTagIds.filter(value => value !== tag)
-                : this.activeTagIds.push(tag);
-        },
-
         toggleFilters() {
             this.isFiltersActive = !this.isFiltersActive;
         },
     },
 
     created() {
-        let postCategoryIds = this.postCategoryIds;
-        let postTagIds = this.postTagIds;
+        const route = useRoute();
+        console.log('%cCreated', 'background-color: orange; color: white; padding: 5px 10px;');
+        console.log(this.$route);
+        console.log(route);
+    },
 
-        const posts = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet`).then(response => {
-            this.posts = response.data;
-            response.data.forEach(function (el) {
-                el.snippet_categories.forEach(function (id) {
-                    if (!postCategoryIds.includes(id)) {
-                        postCategoryIds.push(id);
-                    }
-                });
-                el.tags.forEach(function (id) {
-                    if (!postTagIds.includes(id)) {
-                        postTagIds.push(id);
-                    }
-                });
-            });
-        }).catch(error => {
-            console.warn({error});
-        });
+    mounted() {
+        const route = useRoute();
+        console.log('%cMounted', 'background-color: darkgreen; color: white; padding: 5px 10px;');
+        console.log(this.$route);
+        console.log(route);
+    },
 
-        const categories = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/snippet_categories`).then(response => {
-            this.categories = response.data;
-        }).catch(error => {
-            console.warn({error});
-        });
-
-        const tags = this.axios.get(`http://localhost/wordpress/wp-json/wp/v2/tags`).then(response => {
-            this.tags = response.data;
-        }).catch(error => {
-            console.warn({error});
-        });
+    setup() {
     },
 }
 </script>

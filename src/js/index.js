@@ -9,9 +9,10 @@ import { createApp } from "vue";
 import App from './App.vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import { router } from './router'
 
 if (document.getElementById('js-vue-snippets-container')) {
-    const app = createApp(App);
+    const app = createApp(App).use(router);
     app.use(VueAxios, axios);
     app.mount('#js-vue-snippets-container');
 }
